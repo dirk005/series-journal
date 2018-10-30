@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Namvigation= ({ onRouteCahnge , isSignedIn }) => {
+const Namvigation= ({ onRouteCahnge , isSignedIn ,userDetails}) => {
 	
 		if(isSignedIn){
 			return(
-				<nav style={{display: 'flex',justifyContent:'flex-end'}} className='br3 ba  b--black-10    shadow-5 center  bg-white o-80'>
+				<nav style={{display: 'flex',justifyContent:'flex-end'}} className='ba  b--black-10    shadow-5 center  bg-black o-80'>
+					<p className='f3 white pa2 ma1' >Signed in to : {userDetails.name}</p>
 					<p  onClick={() => onRouteCahnge('signout')} className='f4 link dim black bg-white pa2 pointer ba bw1 br2 ma1'>SIGN OUT</p>
 				</nav>
 			);

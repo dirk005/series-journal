@@ -1,3 +1,6 @@
+body {
+  background-image:none;
+}
 .App {
   text-align: center;
 }
@@ -5,4 +8,19 @@
 .center{
   display: flex;
   justify-content: center;
+}
+.showBack {
+  background-image:  url('./img/background.png')  ;  
+  top : 0;
+  right: 0;
+  bottom:0;
+  left:0;
+  z-index: -1;   
+  background-size: cover;
+  
+  height: 100vh;
+
+}
+.hideBack{
+  background-image: none;
 }

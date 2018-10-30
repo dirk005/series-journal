@@ -31,7 +31,7 @@ class Register  extends React.Component{
 			this.setState({warningMSG: 'Need more info to create user'});
 			this.setState({showWarning: true});
 		} else{
-			fetch('localhost:3001/register',{
+			fetch('http://localhost:3001/register',{
 				method : 'post',
 				headers : {'Content-Type': 'application/json'},
 				body : JSON.stringify({

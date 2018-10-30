@@ -21,20 +21,15 @@ class Signin  extends React.Component{
 
 	onSubmitSignIn = () => {
 
-		fetch(' localhost:3001/signin',{
+		fetch('http://localhost:3001/signin',{
 
 			method : 'post',
 			headers : {'Content-Type': 'application/json'},
 			body : JSON.stringify({
 				email : this.state.signInEmail,
 				password : this.state.signInPassword
-			},console.log('fetch statment'))
-		}).then(response => 
-		{
-			response.json()
-			console.log('got response')
-			
-		})
+			})
+		}).then(response => response.json())
 		.then(user => {
 			if (user.id){
 				this.props.loadUser(user);
