@@ -16,6 +16,10 @@ class MainPage extends Component {
 		this.connectToApi();
 
 	}
+	 // shouldComponentUpdate(nextProps,nextState){
+	 // 	console.log(`${this.state.seriesArray}    ${nextState.seriesArray}`)
+  //  		 return this.state.seriesArray !== nextState.seriesArray ? true: false;
+  //  	 }
 
 	// Login to server and get auth key
 	 connectToApi = () => {
@@ -59,6 +63,7 @@ class MainPage extends Component {
 	//search series
 	searchSeries =()=>{
 		this.setState({notFound:false});
+		this.setState({seriesArray:[]});
 		fetch('http://localhost:3001/seriesSearch',{
 				method : 'post',
 				headers : {'Content-Type': 'application/json'},
@@ -113,12 +118,7 @@ class MainPage extends Component {
 					        id="search"
 					        onChange={this.onSearchChange}
 				        />
-				        <input 
-				      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
-				      	type="submit" 
-				      	value="re-connect "
-				      	onClick={this.connectToApi}
-				      />
+				      
 		 <input 
 				      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
 				      	type="submit" 
