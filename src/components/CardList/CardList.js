@@ -5,30 +5,30 @@ class CardList extends Component {
 	constructor(props){
 		super(props);
 		this.state ={
-			authkey :this.props.authKey,			
-			seriesArray:this.props.seriesIdArray
+			//authkey :this.props.authKey,			
+			//seriesArray:this.props.seriesIdArray
 		}	
 	}	
-	componentWillReceiveProps(props) {
- 	 const { authkey, seriesArray } = this.props;
- 	 console.log(seriesArray)
-	 	 if (seriesArray !== this.state.seriesArray && seriesArray !== undefined ) {
-	   	 	this.setState({seriesArray: !this.state.seriesArray})
-  		}
-}
+// 	componentWillReceiveProps(props) {
+//  	 const { authkey, seriesArray } = this.props;
+//  	 console.log(seriesArray)
+// 	 	 if (seriesArray !== this.state.seriesArray && seriesArray !== undefined ) {
+// 	   	 	this.setState({seriesArray: !this.state.seriesArray})
+//   		}
+// }
 	
   render() {
-  	const {authkey,seriesArray,seriesName} = this.state;
+  	const {authKey,seriesIdArray} = this.props;
     return( 
     	<div>
            {
-			seriesArray.map((seriesId, i) =>{							
+			seriesIdArray.map((seriesId, i) =>{							
 				
 				return (					
 					<Card
-						authKey={authkey} //always send auth key
+						authKey={authKey} //always send auth key
 		 				key={i}
-		 				seriesId={seriesArray[i]} 		 				
+		 				seriesId={seriesId} 		 				
 					 />
 		 			);
 			})

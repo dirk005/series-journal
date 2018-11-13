@@ -1,0 +1,10 @@
+.nav-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+}
+.nav-grid-item {
+  font-size: 15px;
+  text-align: left;
+  padding: 5px;
+}

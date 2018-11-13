@@ -1,5 +1,8 @@
 body {
   background-image:none;
+  background-color: rgb(128,0,128);
+height : 100vh;
+
 }
 .App {
   text-align: center;
@@ -16,11 +19,12 @@ body {
   bottom:0;
   left:0;
   z-index: -1;   
-  background-size: cover;
-  
+  background-size: cover;  
   height: 100vh;
 
 }
 .hideBack{
   background-image: none;
+  background-color: rgb(128,0,128);
+  background-size: cover;
 }

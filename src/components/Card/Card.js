@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-
+import './Card.css';
 class Card extends Component {
 	constructor(props){
 		super(props);
@@ -8,7 +8,6 @@ class Card extends Component {
 			seriesKey:this.props.seriesId,
 			seriesName:''
 		}	
-
 	}
 
 	componentDidMount(){
@@ -71,10 +70,40 @@ class Card extends Component {
 render() {
 		const {seriesName,seriesBanner,seriesFirstAired,seriesGenre,seriesNetwork,seriesOverview,seriesRating,seriesRuntime,seriesSiteRating,seriesSlug,seriesStatus} = this.state;
 		return (
-			<div className=' tc bg-black white dib br3 pa3 ma2 grow bw2 shadow-5'>
-				<img  alt={`${seriesName}`} src={`https://www.thetvdb.com/banners/${seriesBanner}`} />
+			<div className='cardDisplay bg-black white br3 pa3  bw2 shadow-5 '>
+			
+				<div className="flex">
+					<div className="w-50 pa3 mr2">
+						<img className='cardImage' alt={``} src={`https://www.thetvdb.com/banners/${seriesBanner}`} />
+					</div>
+					<div className=" w-25  tl">
+					    <h2 className='underline'>{`${seriesName}`} </h2>						    
+							
+						<div className="grid-container">
+						  	<div className="grid-item">First aired </div>
+						  	<div className="grid-item">{seriesFirstAired}</div>
+						  	<div className="grid-item">Genre</div>  
+						  	<div className="grid-item">{`${seriesGenre}`}</div>
+						  	<div className="grid-item">Network</div>
+							<div className="grid-item">{seriesNetwork}</div>   
+						</div>
+					</div>
+
+					<div className="w-25  tr">
+					   	<h2>{`Rating : ${seriesSiteRating}`}</h2>
+					   	<div className="grid-container">
+						  	<div className="grid-item">Status </div>
+							<div className="grid-item">{seriesStatus}</div>
+							<div className="grid-item">Rated</div>  
+							<div className="grid-item">{seriesRating}</div>
+							<div className="grid-item">Runtime</div>
+							<div className="grid-item">{seriesRuntime}</div>   
+						</div>
+					</div>
+				
+				</div>
 				<div>
-					<h2>{seriesName}</h2>
+					<p className='ma2 underline'>Series overview</p>
 					<p>{seriesOverview}</p>
 				</div>
 			</div>
