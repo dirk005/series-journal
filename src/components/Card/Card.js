@@ -70,7 +70,7 @@ class Card extends Component {
 render() {
 		const {seriesName,seriesBanner,seriesFirstAired,seriesGenre,seriesNetwork,seriesOverview,seriesRating,seriesRuntime,seriesSiteRating,seriesSlug,seriesStatus} = this.state;
 		return (
-			<div className='cardDisplay bg-black white br3 pa3  bw2 shadow-5 '>
+			<div className='cardDisplay bg-black white br3 pa3  bw2 shadow-5 o-80'>
 			
 				<div className="flex">
 					<div className="w-50 pa3 mr2">

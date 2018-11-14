@@ -28,3 +28,7 @@ height : 100vh;
   background-color: rgb(128,0,128);
   background-size: cover;
 }
+.mainColor{
+  background-color: rgb(128,0,128);
+  color:white;
+}

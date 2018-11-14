@@ -1,0 +1,12 @@
+.scrollBack{
+	background-color: rgb(128,0,128);
+  	color:white;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+}
+.scrollStyle{	 	
+ 	overflow-y: scroll; 	
+ 	height: 85vh;
+ }
