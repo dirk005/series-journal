@@ -80,7 +80,7 @@ class App extends Component {
         const authArr= JSON.parse(res); //Change response sting to an object        
         this.setState({authkey: authArr.token});
         console.log('connected')
-        //console.log(this.state.authkey)
+        console.log(this.state.authkey)
         }
    })
     .catch(err => console.log(err)) 
@@ -131,27 +131,24 @@ class App extends Component {
         <Navigation isSignedIn={isSignedIn} onRouteCahnge={this.onRouteCahnge} userDetails={user} searchSeries={this.searchSeries} onSearchChange={this.onSearchChange} />
         { route === 'home' ?
             <div>    
-                  <div>
-              
-             {
-              notfound ?
-              <div className="alert f4  pa2  ba bw1 br2 ma1">
-                <p><strong>{`No match for ${searchTerm}`}</strong></p>
-              </div>
-              :( displayCards  ?
-                 <div>
-                  <Scroll>
-                    <CardList seriesIdArray={seriesArray} authKey={authkey}/>
-                  </Scroll>
-                </div>              
-                :
-                <div className=" f4  pa2  ba bw1 br2 ma1">
-                  <p><strong>{`No series yet, search a series`}</strong></p>
-                </div>
-              )
+              <div>
+               { notfound ?
+                  <div className="alert f4  pa2  ba bw1 br2 ma1">
+                     <p><strong>{`No match for ${searchTerm}`}</strong></p>
+                  </div>
+                :( displayCards  ?
+                    <div>
+                      <Scroll>
+                        <CardList seriesIdArray={seriesArray} authKey={authkey}/>
+                      </Scroll>
+                    </div>              
+                   :
+                    <div className=" f4  pa2  ba bw1 br2 ma1">
+                      <p><strong>{`No series yet, search a series`}</strong></p>
+                    </div>
+                  )
              }
-      </div>
-
+           </div>
             {         
               // <MainPage/>    
             }                

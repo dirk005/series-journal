@@ -8,3 +8,10 @@
   text-align: left;
   padding: 5px;
 }
+@media only screen and (max-width: 600px) {
+   .nav-grid-container {
+	  display: grid;
+	  grid-template-columns: auto auto;
+	  padding: 10px;
+	}
+}
