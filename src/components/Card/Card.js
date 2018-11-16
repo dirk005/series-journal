@@ -19,7 +19,8 @@ class Card extends Component {
 			seriesSlug:'',
 			seriesStatus:'',
 			airedEpisodes:'',
-			Seasons:[]
+			Seasons:[],
+			episodesDetailed:[]
 		}	
 	}
 
@@ -98,6 +99,8 @@ class Card extends Component {
 		.catch(err =>{
 			 console.log(err)		 
 			})	
+		//get episodes
+		this.getSeriesEpisodes()
 	}
 
 	//get episodes information
@@ -119,7 +122,23 @@ class Card extends Component {
 				console.log('page not found')
 			}else{
 				const episodeInfo = JSON.parse(res);
-				console.log(episodeInfo.data)
+					
+				let episodesDetailedArray = [];
+				for ( var i =0 ;i < episodeInfo.data.length;i++){
+           			 //add episode details 
+            		
+            		episodesDetailedArray.push({
+            			id : episodeInfo.data[i].id,
+            			airedSeason : episodeInfo.data[i].airedSeason,
+            			airedEpisodeNumber : episodeInfo.data[i].airedEpisodeNumber,
+            			episodeName : episodeInfo.data[i].episodeName,
+            			firstAired : episodeInfo.data[i].firstAired,
+            			siteRating : episodeInfo.data[i].siteRating
+            		})
+            		
+        		} 
+        			this.setState({episodesDetailed:episodesDetailedArray})
+				console.log(episodesDetailedArray)
 			}
 		})
 		.catch(err =>{
@@ -129,7 +148,7 @@ class Card extends Component {
 		
 
 render() {
-		const {seriesName,seriesBanner,seriesFirstAired,seriesGenre,seriesNetwork,seriesOverview,seriesRating,seriesRuntime,seriesSiteRating,seriesSlug,seriesStatus,Seasons} = this.state;
+		const {seriesName,seriesBanner,seriesFirstAired,seriesGenre,seriesNetwork,seriesOverview,seriesRating,seriesRuntime,seriesSiteRating,seriesSlug,seriesStatus,Seasons,episodesDetailed} = this.state;
 		
 		if (seriesBanner === ''){
 			return <div></div>;
@@ -172,15 +191,46 @@ render() {
 				  	</p>
 				  	{ 	// add seasons to page is any is found or else add nothing.
 				  		Seasons.length ? 
-				  			Seasons.map((val,i) => {
+				  			Seasons.map((seasonNumber,i) => {
 					  		return (
-					  				<Accordion>
+					  				<Accordion key={seasonNumber} >
 						        		<AccordionGroup>
-						             		<AccordionGroupTitle>
-						                		Season {val}
+						             		<AccordionGroupTitle className=' f3 black pa2 ma1 bb b--white-10 ba shadow-5 center  bg-white o-80'>
+						                		Season {seasonNumber}
 						             		</AccordionGroupTitle>
 						             		<AccordionGroupBody>
-						                 		Body part, you can put here any element you want
+						             		<div className="pa4">
+						             		 	<div className="overflow-auto">
+												    <table className="f6 w-100 mw8 center" cellSpacing="0">
+												      	<tbody className="lh-copy">
+												        	<tr>
+														        <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">#</th>
+														        <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">Name</th>
+														        <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">Aired Date</th>
+												          		<th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">Rating</th>
+												        	</tr>
+												      	
+												    	
+									             		{
+									             			episodesDetailed.map((value,ii) => {
+									             				
+									             				 return value.airedSeason === seasonNumber ?
+									             				  	<tr key ={value.id} >
+															          <td className="pv3 pr3 tl bb b--white-20">{value.airedEpisodeNumber}</td>
+															          <td className="pv3 pr3 tl bb b--white-20">{value.episodeName}</td>
+															          <td className="pv3 pr3 tl bb b--white-20">{value.firstAired}</td>
+															          <td className="pv3 pr3 tr bb b--white-20">{value.siteRating}</td>
+															        </tr>												       
+																:
+									             				  null;
+									             				 
+									             		 	})
+									                	}
+						                		 		</tbody>
+													</table>
+												 </div>
+											</div>
+						                 	
 						             		</AccordionGroupBody>
 						         		</AccordionGroup>						         
 					     			</Accordion>
