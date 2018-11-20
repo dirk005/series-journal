@@ -20,7 +20,6 @@ const initialState = {
       authkey :[],
       searchTerm: '',
       notFound:false,
-      seriesArray:[],
       displayCards:false
 
 }
@@ -41,7 +40,6 @@ class App extends Component {
       authkey :[],
       searchTerm: '',
       notFound:false,
-      seriesArray:[],
       displayCards:false
     }
     this.onSearchChange = this.onSearchChange.bind(this);
@@ -89,7 +87,7 @@ class App extends Component {
     //search series
   searchSeries =()=>{
     this.setState({notFound:false});
-    this.setState({seriesArray:[]});
+    let searchSeriesArray = [];    
     fetch('http://localhost:3001/seriesSearch',{
         method : 'post',
         headers : {'Content-Type': 'application/json'},
@@ -110,8 +108,19 @@ class App extends Component {
       else{
         const search = JSON.parse(res);
         for ( var i =0 ;i < search.data.length;i++){
-            //add series ID's to series Array
-            this.setState({seriesArray:[...this.state.seriesArray,search.data[i].id]}); 
+            searchSeriesArray.push({
+              banner: search.data[i].banner,
+              firstAired: search.data[i].firstAired,
+              id: search.data[i].id,
+              network: search.data[i].network,
+              overview: search.data[i].overview,
+              seriesName: search.data[i].seriesName,
+              slug: search.data[i].slug,
+              status: search.data[i].status
+            })
+            //add series ID's to series Array           
+            this.setState({searchArray:searchSeriesArray});
+            console.log(searchSeriesArray)
         } 
         this.setState({displayCards:true});
         console.log('searched')       
@@ -124,7 +133,7 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn,route,user,notfound,searchTerm,displayCards,authkey,seriesArray} = this.state;
+    const { isSignedIn,route,user,notfound,searchTerm,displayCards,authkey,searchArray} = this.state;
     return (
      
       <div className={"App " + (route !== 'home' ? 'showBack' : 'hideBack')}>
@@ -139,7 +148,7 @@ class App extends Component {
                 :( displayCards  ?
                     <div>
                       <Scroll>
-                        <CardList seriesIdArray={seriesArray} authKey={authkey}/>
+                        <CardList  searchArray={searchArray}/>
                       </Scroll>
                     </div>              
                    :

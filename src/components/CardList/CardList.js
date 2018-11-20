@@ -3,36 +3,31 @@ import Card from '../Card/Card.js';
 
 class CardList extends Component {
 	constructor(props){
-		super(props);
-		this.state ={
-			//authkey :this.props.authKey,			
-			//seriesArray:this.props.seriesIdArray
-		}	
+		super(props);	
 	}	
-// 	componentWillReceiveProps(props) {
-//  	 const { authkey, seriesArray } = this.props;
-//  	 console.log(seriesArray)
-// 	 	 if (seriesArray !== this.state.seriesArray && seriesArray !== undefined ) {
-// 	   	 	this.setState({seriesArray: !this.state.seriesArray})
-//   		}
-// }
 	
   render() {
-  	const {authKey,seriesIdArray} = this.props;
+  	const {searchArray} = this.props;
+  	console.log(searchArray)
     return( 
     	<div>
            {
-			seriesIdArray.map((seriesId, i) =>{							
-				
-				return (					
-					<Card
-						authKey={authKey} //always send auth key
-		 				key={i}
-		 				seriesId={seriesId} 		 				
-					 />
-		 			);
-			})
-		}
+
+	           	searchArray.map((searchDetail,i) =>{
+	           		return(
+	           				<Card 
+	           					key={i}	           					
+	           					seriesName={searchDetail.seriesName}
+	           					overview={searchDetail.overview}
+	           					firstAired={searchDetail.firstAired}
+	           					id={searchDetail.id}
+	           					status={searchDetail.status}
+	           					banner={searchDetail.banner}
+	           					network={searchDetail.network}
+	           				/>
+	           			);
+	           	})
+			}
         </div>
       );
   }

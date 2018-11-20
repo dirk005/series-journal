@@ -1,0 +1,22 @@
+.cardDisplay{
+	width: 98%;
+	min-width: 98%;
+	margin: 10px auto;
+}
+
+.cardImage{
+	background-color: rgba(0,0,0,1);
+}
+
+
+.grid-container {
+	display: grid;
+	grid-template-columns: auto auto;*/
+  	padding: 10px;
+}
+
+.grid-item {
+  font-size: 15px;
+  text-align: left;
+  padding: 5px;
+}
