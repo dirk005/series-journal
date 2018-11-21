@@ -43,7 +43,7 @@ class Register  extends React.Component{
 			.then(user => {
 				if (user.id){
 					this.props.loadUser(user);
-					this.props.onRouteCahnge('home');
+					this.props.onRouteChange('home');
 				}else{
 					this.setState({warningMSG: 'User exists'});
 				this.setState({showWarning: true});

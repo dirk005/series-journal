@@ -6,7 +6,9 @@ import Register from './components/Register/Register';
 //import MainPage from './components/MainPage/MainPage'
 import CardList from './components/CardList/CardList';
 import Scroll from './components/Scroll/scroll';
+import SeriesDetail from './components/SeriesDetail/SeriesDetail'
 
+//setup initial state to clear if logged out
 const initialState = {
       input:'',      
       route:'signin',
@@ -21,8 +23,8 @@ const initialState = {
       searchTerm: '',
       notFound:false,
       displayCards:false
-
 }
+
 class App extends Component {
 //Setup state variables
   constructor(){
@@ -40,14 +42,17 @@ class App extends Component {
       authkey :[],
       searchTerm: '',
       notFound:false,
-      displayCards:false
+      displayCards:false,
+      viewSeries:''
     }
     this.onSearchChange = this.onSearchChange.bind(this);
   }
+
   componentDidMount(){
     this.connectToApi();
   }
 
+  //load user details
   loadUser = (userInfo) =>{
     this.setState({user:{
         id:userInfo.id,
@@ -57,7 +62,7 @@ class App extends Component {
       }})
   }
   //change route 
-  onRouteCahnge = (route) => {
+  onRouteChange = (route) => {
     if(route === 'signout'){
       this.setState(initialState)  
       route = 'signin'   
@@ -68,26 +73,26 @@ class App extends Component {
   }
 
   // Login to server and get auth key
-   connectToApi = () => {
+  connectToApi = () => {
     fetch('http://localhost:3001/tvdblogin')
     .then(response => response.json())
     .then(res => {
       if(res === 'error'){
-        console.log('error')
+        console.log('Error connecting to API')
       }else{
-        const authArr= JSON.parse(res); //Change response sting to an object        
+        const authArr= JSON.parse(res); //Parse response to an object       
         this.setState({authkey: authArr.token});
-        console.log('connected')
-        console.log(this.state.authkey)
-        }
-   })
-    .catch(err => console.log(err)) 
+        console.log(this.state.authkey) //display Auth in testing
+      }
+   }).catch(err => console.log(err)) 
   }
 
-    //search series
+  //Search series 
   searchSeries =()=>{
     this.setState({notFound:false});
-    let searchSeriesArray = [];    
+    // Clear array before search 
+    let searchSeriesArray = [];   
+
     fetch('http://localhost:3001/seriesSearch',{
         method : 'post',
         headers : {'Content-Type': 'application/json'},
@@ -103,52 +108,80 @@ class App extends Component {
         console.log(`error connecting to search ${this.state.searchTerm}`)
       }else if(res === '404'){
         this.setState({notFound:true});
-        console.log(this.state.notFound)
       } 
       else{
-        const search = JSON.parse(res);
-        for ( var i =0 ;i < search.data.length;i++){
-            searchSeriesArray.push({
-              banner: search.data[i].banner,
-              firstAired: search.data[i].firstAired,
-              id: search.data[i].id,
-              network: search.data[i].network,
-              overview: search.data[i].overview,
-              seriesName: search.data[i].seriesName,
-              slug: search.data[i].slug,
-              status: search.data[i].status
-            })
+        const search = JSON.parse(res); //Parse response to Object
+        
+        //Read data and add to to searchSeriesArray
+        searchSeriesArray = search.data.map(detail => {
+              return {
+                banner: detail.banner,
+                firstAired: detail.firstAired,
+                id: detail.id,
+                network: detail.network,
+                overview: detail.overview,
+                seriesName: detail.seriesName,
+                slug: detail.slug,
+                status: detail.status
+              }
+            });
             //add series ID's to series Array           
             this.setState({searchArray:searchSeriesArray});
-            console.log(searchSeriesArray)
+            this.setState({displayCards:true});
         } 
-        this.setState({displayCards:true});
-        console.log('searched')       
-      } 
+             
+      
      })
     .catch(err => console.log(err)) 
   }
+
+  //Change state to display series detail
+  onSeriesChange = (value) =>{
+    this.setState({viewSeries: value})
+  }
+
+  //change state of search box value
   onSearchChange = (value) =>{
     this.setState({searchTerm: value})   
   }
 
   render() {
-    const { isSignedIn,route,user,notfound,searchTerm,displayCards,authkey,searchArray} = this.state;
+    const { isSignedIn,route,user,notFound,searchTerm,displayCards,authkey,searchArray,viewSeries} = this.state;
     return (
      
-      <div className={"App " + (route !== 'home' ? 'showBack' : 'hideBack')}>
-        <Navigation isSignedIn={isSignedIn} onRouteCahnge={this.onRouteCahnge} userDetails={user} searchSeries={this.searchSeries} onSearchChange={this.onSearchChange} />
+      <div className={"App " + (route === 'signin' || route === 'register'  ?  'showBack': 'hideBack')}>
+        {
+        // ******************
+        // Display Navigation
+        // ******************
+        }
+        <Navigation 
+          isSignedIn={isSignedIn} 
+          onRouteChange={this.onRouteChange} 
+          userDetails={user} 
+          searchSeries={this.searchSeries} 
+          onSearchChange={this.onSearchChange} 
+        />
+        {
+        // ******************************
+        // Change the dislay as necessary 
+        // ******************************
+        }
         { route === 'home' ?
             <div>    
               <div>
-               { notfound ?
+               { notFound ?
                   <div className="alert f4  pa2  ba bw1 br2 ma1">
-                     <p><strong>{`No match for ${searchTerm}`}</strong></p>
+                    <p><strong>{`No match for ${searchTerm}`}</strong></p>
                   </div>
                 :( displayCards  ?
                     <div>
                       <Scroll>
-                        <CardList  searchArray={searchArray}/>
+                        <CardList 
+                          searchArray={searchArray} 
+                          onRouteChange={this.onRouteChange} 
+                          onSeriesChange={this.onSeriesChange}
+                          />
                       </Scroll>
                     </div>              
                    :
@@ -156,17 +189,21 @@ class App extends Component {
                       <p><strong>{`No series yet, search a series`}</strong></p>
                     </div>
                   )
-             }
-           </div>
-            {         
-              // <MainPage/>    
-            }                
+              }
+             </div>
+                           
             </div>            
-          :( route === 'signin' ?             
-                <Signin loadUser={this.loadUser} onRouteCahnge={this.onRouteCahnge}/>             
-                :
-                <Register loadUser={this.loadUser} onRouteCahnge={this.onRouteCahnge}/>
-            )           
+          :( route === 'SeriesDetail' ?
+              <SeriesDetail
+                authKey={authkey}
+                seriesId={viewSeries}
+              />
+              : ( route === 'signin' ?             
+                  <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>             
+                  :
+                  <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              )   
+          )        
        }      
       </div>
     );

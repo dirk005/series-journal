@@ -33,7 +33,7 @@ class Signin  extends React.Component{
 		.then(user => {
 			if (user.id){
 				this.props.loadUser(user);
-				this.props.onRouteCahnge('home');
+				this.props.onRouteChange('home');
 			}else{
 				this.setState({warningMSG: 'Incorrect Email or Password.'});
 				this.setState({showWarning: true})
@@ -50,7 +50,7 @@ class Signin  extends React.Component{
 
 
 	render(){
-		const { onRouteCahnge } = this.props;
+		const { onRouteChange } = this.props;
 		const {showWarning,warningMSG} = this.state;
 		return (
 			<article className="br3 ba  b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center  mainColor o-80 ">
@@ -98,7 +98,7 @@ class Signin  extends React.Component{
 				      />
 				    </div>
 				    <div className="lh-copy mt3">
-				      <p onClick={() => onRouteCahnge('register')} className="f6 link dim black db pointer white">Register</p>			      
+				      <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer white">Register</p>			      
 				    </div>
 				  </div>
 				</main>

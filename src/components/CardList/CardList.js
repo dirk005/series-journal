@@ -2,17 +2,11 @@ import React, { Component }from 'react';
 import Card from '../Card/Card.js';
 
 class CardList extends Component {
-	constructor(props){
-		super(props);	
-	}	
-	
   render() {
-  	const {searchArray} = this.props;
-  	console.log(searchArray)
+  	const {searchArray,onRouteChange,onSeriesChange} = this.props;
     return( 
     	<div>
            {
-
 	           	searchArray.map((searchDetail,i) =>{
 	           		return(
 	           				<Card 
@@ -24,6 +18,8 @@ class CardList extends Component {
 	           					status={searchDetail.status}
 	           					banner={searchDetail.banner}
 	           					network={searchDetail.network}
+	           					onRouteChange={onRouteChange}
+	           					onSeriesChange={onSeriesChange}
 	           				/>
 	           			);
 	           	})

@@ -2,16 +2,13 @@ import React, { Component }from 'react';
 import './Card.css';
 
 class Card extends Component {
-	constructor(props){
-		super(props);
-		this.state ={
-			
-		}	
+	
+	onSeriesSelect =() => {
+		this.props.onSeriesChange(this.props.id);
 	}
 
 render() {
-		const {	 seriesName, overview, firstAired, id, status, banner, network} = this.props;
-	console.log(seriesName)
+		const {	 seriesName, overview, firstAired, status, banner, network,onRouteChange} = this.props;
 		if (banner === ''){
 			return <div></div>;
 		}else{
@@ -51,12 +48,16 @@ render() {
 					</div>
 				</div>
 				<div>
-					<p className='ma2 underline'>Series overview</p>
+					<p className='ma2 underline'>Overview</p>
 					<p>{overview}</p>
 					<p  
-				  		onClick={() => this.getSeriesSeasons()} 
+				  		onClick={() => {
+				  				this.onSeriesSelect(); //add series ID to App.js
+				  				onRouteChange('SeriesDetail'); //change Route to dislay series detail
+				  			}  
+				  		} 
 				  		className='pointer f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-20 ma1'>
-				  			VIEW MORE
+				  			VIEW 
 				  	</p>					
 				</div>
 			</div>
