@@ -32,3 +32,35 @@ height : 100vh;
   background-color: rgb(128,0,128);
   color:white;
 }
+
+/* Flex styles */
+.flex-items{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap; 
+}
+
+.flex-items h2{
+  flex: 1 1 100%;
+}
+
+.flex-image{
+  flex:1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2em;
+}
+
+.flex-detail{
+  flex:1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.flex-image img{
+  background-color: rgba(0,0,0,1);
+  flex:2 2 100%;
+}
+

@@ -186,24 +186,17 @@ render() {
 		}else{
 		return (
 			<div className='cardDisplay bg-black white br3 pa3  bw2 shadow-5 o-80'>
-			<h2 className=' f2 underline '>{`${seriesDetails.seriesName}`} </h2>
-				<div className=''>				
-					<div className="flex justify flex-wrap">
-						<div className="flex ">
-							<img className='cardImage' alt={``} src={`https://www.thetvdb.com/banners/${seriesDetails.seriesBanner}`} />
-						</div>
-						<div className=" flex ml1 w-100 w-50-ns">								
-								<div>
-									<p className='ma2 underline'>Overview</p>
-									<p>{seriesDetails.seriesOverview}</p>
-								</div>								
-						</div>							
-					</div>
-				</div>
-				<div className="flex justify flex-wrap">	
-					<div className="pa3 ma2 ">				
+			
+				<div className='flex-items'>			
+					{
+					// <h2 className=' f2 underline '>{`${seriesDetails.seriesName}`} </h2>
+					}
+					<div className="flex-image ">
+						<img  alt={``} src={`https://www.thetvdb.com/banners/${seriesDetails.seriesBanner}`} />
+					</div>						
+					<div className="flex-detail">									
              		 	<div className="overflow-auto">
-						    <table className="f5  center" cellSpacing="0">
+						    <table className="f5 center " cellSpacing="0">
 						      	<tbody className="lh-copy">
 									<tr>
 							          <td className="pr3 tl underline">First aired</td>
@@ -238,10 +231,16 @@ render() {
 							          <td className="tl">{episodesDetailed.length}</td>										          
 							        </tr>
 	        					</tbody>
-							</table>
+							</table>													
+						</div>	
+					</div>
+					<div className="flex-detail ">								
+						<div>
+							<p className='ma2 underline'>Overview</p>
+							<p>{seriesDetails.seriesOverview}</p>
 						</div>								
 					</div>								
-					<div className="w-100 w-50-ns pa3 mr2 ">
+					<div className="flex-season">
 					  	{ 	// add seasons to page				  		
 			  			Seasons.map((seasonNumber,i) => {
 				  		return (
@@ -253,8 +252,8 @@ render() {
 					             		<AccordionGroupBody>
 						             		<div className="">
 						             		 	<div className="pa2 ">
-												    <table className="f6 w-100 mw8 center" cellSpacing="0">
-												      	<tbody className="lh-copy ma2">
+												    <table className="f6 mw8 center" cellSpacing="0">
+												      	<tbody className="lh-copy ">
 												        	<tr>
 														        <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">#</th>
 														        <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white black o-80">Name</th>
@@ -286,21 +285,26 @@ render() {
 					 	}
 			 		</div>	
 
-				</div>
-				<h2 className=' f2 underline '>{`Actors`} </h2>
-					<div className=''>			
+					<h2 className=' f2 underline '>{`Actors`} </h2>
+					<div  className='flex-actors'>			
 						
 								{
-									SeriesActors.map(actor => {
+									SeriesActors.map((actor,i) => {
 										return (
-											
-												<img  alt={``} src={`https://www.thetvdb.com/banners/${actor.image}`} />
+												<div key={i} className="gallery-item">
+													<img  alt={``} src={`https://www.thetvdb.com/banners/${actor.image}`} />
+													{// <a href={`http://www.google.com/search?q=${actor.name}`}>{actor.name}	</a>												
+   													 }
+   													 <span className="text-wrapper"><span className="name">{actor.role}</span>   													 
+   												 	<span className="title">{actor.name}</span></span>  													
+												</div>
 											
 											)
 									})
 								}
 							
 					</div>
+				</div>
 			</div>
 			);
 		}

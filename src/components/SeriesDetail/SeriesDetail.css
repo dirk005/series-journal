@@ -3,9 +3,47 @@
 	min-width: 98%;
 	margin: 10px auto;
 }
+.flex-season{
+	flex:1 1 100%;
+	padding: 0;
+}
+.flex-actors{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: flex-start;
 
-.cardImage{
-	background-color: rgba(0,0,0,1);
+}
+.flex-actors img{
+	flex: 1 1 33.333%;
+	display: flex;	
+	margin: 1em 0;	
+}
+
+.gallery-item {  
+  text-decoration: none;
+  margin:1em;
+  padding:1em;
+  padding-top: 0.1em;
+  border:2px solid rgba(255,255,255,0.5);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+}
+.gallery-item a {
+	text-decoration: none;
+	
+}
+.text-wrapper {
+  position: relative;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #fff;  
+}
+
+.name {
+  font-size: 1.5em;
 }
 
 
