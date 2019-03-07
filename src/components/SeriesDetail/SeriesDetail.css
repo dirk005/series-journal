@@ -1,50 +1,48 @@
-.cardDisplay{
+.cardDisplay {
 	width: 98%;
 	min-width: 98%;
 	margin: 10px auto;
 }
-.flex-season{
-	flex:1 1 100%;
+.flex-season {
+	flex: 1 1 100%;
 	padding: 0;
 }
-.flex-actors{
+.flex-actors {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: flex-start;
-
 }
-.flex-actors img{
+.flex-actors img {
 	flex: 1 1 33.333%;
-	display: flex;	
-	margin: 1em 0;	
+	display: flex;
+	margin: 1em 0;
 }
-
-.gallery-item {  
-  text-decoration: none;
-  margin:1em;
-  padding:1em;
-  padding-top: 0.1em;
-  border:2px solid rgba(255,255,255,0.5);
-  border-radius: 10px;
-  background: rgba(255,255,255,0.2);
+.gallery-item {
+	text-decoration: none;
+	margin: 1em;
+	padding: 1em;
+	padding-top: 0.1em;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.2);
 }
 .gallery-item a {
 	text-decoration: none;
-	
+	color: rgb(0, 0, 0);
+}
+.gallery-item a:visited {
+	text-decoration: none;
+	color: rgb(0, 0, 0);
 }
 .text-wrapper {
-  position: relative;  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  color: #fff;  
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	color: rgb(255, 255, 255);
 }
-
 .name {
-  font-size: 1.5em;
+	font-size: 1.5em;
 }
-
-
-
